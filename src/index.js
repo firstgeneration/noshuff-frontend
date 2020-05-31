@@ -1,13 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import './index.css';
+import { Router, Link } from "@reach/router";
+import Landing from 'pages/landing/Landing';
 
 const App = () => {
-  return (
-    <div>
-        <h1>No Shuffle is Better</h1>
-    </div>
-  );
+    return (
+        <Router>
+            <Landing path="/" />
+        </Router>
+    );
 };
 
 ReactDOM.render(<App />, document.querySelector("#root"));

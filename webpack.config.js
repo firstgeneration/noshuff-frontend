@@ -23,5 +23,11 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: __dirname + '/src/index.html',
         })
-    ]
+    ],
+    resolve: {
+        alias: {
+            pages: path.join(__dirname, '/src/components/pages'),
+            components: path.join(__dirname, '/src/components'),
+        }
+    }
 };
