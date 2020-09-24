@@ -11,17 +11,20 @@ class Login extends Component {
         // Handle case where user rejects spotify access
 
         const parsed = queryString.parse(this.props.location.hash);
-        const expires_in = parsed.expires_in;
-        const access_token = parsed.access_token;
 
-        localStorage.setItem('spotifyToken', access_token)
+        localStorage.setItem('spotifyToken', parsed.access_token);
 
-        const apiParams = queryString.stringify({ access_token, expires_in });
-        fetch(`http://localhost:5000/auth/login?${apiParams}`)
+        const apiParams = queryString.stringify(
+            { 
+                spotify_access_token: parsed.access_token,
+                spotify_access_token_expires_in: parsed.expires_in 
+            }
+        );
+        fetch(`http://localhost:5000/api/v1/login?${apiParams}`)
             .then(res => res.json())
             .then(
                 (result) => {
-                    localStorage.setItem('noshuffToken', result.access_token)
+                    localStorage.setItem('noshuffToken', result.noshuff_access_token)
                     navigate("/feed", { replace: true})
                 },
                 (error) => {

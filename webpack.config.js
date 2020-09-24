@@ -34,8 +34,8 @@ module.exports = {
     ],
     resolve: {
         alias: {
-            pages: path.join(__dirname, '/src/components/pages'),
-            components: path.join(__dirname, '/src/components'),
+            Pages: path.join(__dirname, '/src/pages'),
+            Components: path.join(__dirname, '/src/components'),
         }
     }
 };
