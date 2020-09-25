@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-class Landing extends Component {
+const Landing = () => {
 
-    getSpotifyUrl(){
-        let client_id = process.env.SPOTIFY_CLIENT_ID;
-        let scopes = 'user-read-private user-read-email';
-        let redirect_uri = 'http://localhost:8080/login';
+    const getSpotifyUrl = () => {
+        const client_id = process.env.SPOTIFY_CLIENT_ID;
+        const scopes = 'user-read-private user-read-email';
+        const redirect_uri = 'http://localhost:8080/login';
 
         return 'https://accounts.spotify.com/authorize' +
             '?response_type=token' +
@@ -14,14 +14,12 @@ class Landing extends Component {
             '&redirect_uri=' + encodeURIComponent(redirect_uri);
     }
 
-    render() {
-        return (
-            <div>
-                <h1>Welcome to NoShuff</h1>
-                <a href={this.getSpotifyUrl()}>Login with Spotify</a>
-            </div>
-        );
-    }
+    return (
+        <div>
+            <h1>Welcome to NoShuff</h1>
+            <a href={getSpotifyUrl()}>Login with Spotify</a>
+        </div>
+    );
 }
 
 export default Landing;
