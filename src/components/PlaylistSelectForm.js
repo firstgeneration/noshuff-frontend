@@ -6,16 +6,21 @@ const PlaylistSelectForm = () => {
     const [playlists, setPlaylists] = useState([]);
 
     const get_user_playlists = () => {
+
+        const get_best_image_url = (images) => {
+            const image = images.find(img => img.width == '60');
+            return image ? image.url : images[0].url
+        }
+
         let spotify = new SpotifyWebApi();
         spotify.setAccessToken(localStorage.getItem('spotifyToken'));
         spotify.getUserPlaylists()
         .then(
             (data) => {
-                // console.log('User playlists', data);
                 let playlists = []
                 data.items.map((pData) => {
                     const playlist = {
-                        coverImageUrl: pData.images[1],
+                        coverImageUrl: get_best_image_url(pData.images),
                         name: pData.name,
                         trackCount: pData.tracks.total,
                     }
@@ -29,14 +34,18 @@ const PlaylistSelectForm = () => {
         );
     }
     
-    useEffect(() => get_user_playlists());
+    useEffect(() => get_user_playlists(), []);
 
     return (
         <div>
             <h2>Select your playlist</h2>
             <ul>
                 {playlists.map(playlist => 
-                    <li key={playlist.name}>{playlist.name}</li>
+                    <li key={playlist.name}>
+                        <span>{playlist.name}</span>
+                        <img width="60px" src={playlist.coverImageUrl}/>
+                        <span>Trackcount: {playlist.trackCount}</span>
+                    </li>
                 )}
             </ul>
         </div>
