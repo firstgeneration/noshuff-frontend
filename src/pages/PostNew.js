@@ -16,10 +16,6 @@ const PostNew = () => {
     const [hashtags, setHashtags] = useState([]);
 
     const get_user_spotify_playlists = () => {
-        const get_best_image_url = (images) => {
-            const image = images.find(img => img.width == '60');
-            return image ? image.url : images[0].url
-        }
         let spotify = new SpotifyWebApi();
         spotify.setAccessToken(localStorage.getItem('spotifyToken'));
         spotify.getUserPlaylists()
@@ -29,7 +25,7 @@ const PostNew = () => {
                 const playlists = data.items.reduce((result, pData) => {
                     result.set(pData.id, {
                         name: pData.name,
-                        coverImageUrl: get_best_image_url(pData.images),
+                        coverImageUrls: pData.images,
                         description: pData.description,
                         trackCount: pData.tracks.total,
                     });

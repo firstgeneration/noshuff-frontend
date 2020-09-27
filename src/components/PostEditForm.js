@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react'
 import SpotifyWebApi from 'spotify-web-api-js';
 
 const PostEditForm = (props) => {
-
+    const get_best_image_url = (imageUrls) => {
+        const image = imageUrls.find(img => img.width == '300');
+        return image ? image.url : imageUrls[0].url
+    }
     return (
         <div>
             <h2>Post Edit form is here</h2>
-            <img width="150px" src={props.playlist.coverImageUrl}/>
+            <img width="150px" src={get_best_image_url(props.playlist.coverImageUrls)}/>
             <ul>
                 <li>Name: {props.playlist.name}</li>
                 <li>Description: {props.playlist.description}</li>
