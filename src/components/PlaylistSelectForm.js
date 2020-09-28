@@ -2,14 +2,14 @@ import React from 'react';
 
 const PlaylistSelectForm = (props) => {
     const selectPlaylist = (id) => {
-        props.selectPlaylist(props.playlists.get(id));
+        props.selectPlaylist(id);
         props.goNextStep();
     };
 
     const get_best_image_url = (imageUrls) => {
         const image = imageUrls.find(img => img.width == '60');
         return image ? image.url : imageUrls[0].url
-    }
+    };
 
     return (
         <div>
@@ -25,6 +25,6 @@ const PlaylistSelectForm = (props) => {
             </ul>
         </div>
     );
-}
+};
 
 export default PlaylistSelectForm;

@@ -6,30 +6,26 @@ import PostEditForm from 'Components/PostEditForm';
 const PostNew = () => {
     const [step, setStep] = useState(1);
     const [playlists, setPlaylists] = useState([]);
-    const [selectedPlaylist, setselectedPlaylist] = useState({
-        playlistId: 0,
-        playlistName: '',
-        description: '',
-        trackCount: 0,
-    });
+    const [selectedPlaylistId, setSelectedPlaylistId] = useState('');
+    const [selectedPlaylistTracks, setSelectedPlaylistTracks] = useState([]);
     const [comment, setComment] = useState('');
     const [hashtags, setHashtags] = useState([]);
 
+    let spotify = new SpotifyWebApi();
+    spotify.setAccessToken(localStorage.getItem('spotifyToken'));
+
     const get_user_spotify_playlists = () => {
-        let spotify = new SpotifyWebApi();
-        spotify.setAccessToken(localStorage.getItem('spotifyToken'));
         spotify.getUserPlaylists()
         .then(
             (data) => {
                 console.log(data);
                 const playlists = data.items.reduce((result, pData) => {
-                    result.set(pData.id, {
+                    return result.set(pData.id, {
                         name: pData.name,
                         coverImageUrls: pData.images,
                         description: pData.description,
                         trackCount: pData.tracks.total,
                     });
-                    return result
                 }, new Map());
                 setPlaylists(playlists);
                 console.log(playlists);
@@ -38,9 +34,27 @@ const PostNew = () => {
                 console.error(err);
             }
         );
-    }
-
+    };
     useEffect(() => get_user_spotify_playlists(), []);
+
+    const get_selected_playlist_tracks = (playlistId) => {
+        spotify.getPlaylistTracks(playlistId)
+        .then(
+            (data) => {
+                const tracks = data.items.reduce((result, tData) => {
+                    return result.concat({
+                        name: tData.track.name,
+                        durationMs: tData.track.duration_ms,
+                    });
+                }, []);
+                setSelectedPlaylistTracks(tracks);
+            },
+            (err) => {
+                console.error(err);
+            }
+        );
+    };
+    useEffect(() => get_selected_playlist_tracks(selectedPlaylistId), [selectedPlaylistId]);
 
     return (
         <div>
@@ -49,17 +63,18 @@ const PostNew = () => {
                 <PlaylistSelectForm
                     goNextStep={() => setStep(step + 1)}
                     playlists={playlists}
-                    selectPlaylist={setselectedPlaylist}
+                    selectPlaylist={setSelectedPlaylistId}
                 />
             }
             {step == 2 &&
                 <PostEditForm
                     goPrevStep={() => setStep(step - 1)}
-                    playlist={selectedPlaylist}
+                    playlist={playlists.get(selectedPlaylistId)}
+                    tracks={selectedPlaylistTracks}
                 />
             }
         </div>
     );
-}
+};
 
 export default PostNew;
