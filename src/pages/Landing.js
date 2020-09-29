@@ -1,4 +1,5 @@
 import React from 'react';
+import { Typography } from 'antd';
 
 const Landing = () => {
 
@@ -16,7 +17,7 @@ const Landing = () => {
 
     return (
         <div>
-            <h1>Welcome to NoShuff</h1>
+            <Typography.Title level={1}>Welcome to NoShuff</Typography.Title>
             <a href={getSpotifyUrl()}>Login with Spotify</a>
         </div>
     );
