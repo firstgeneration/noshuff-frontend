@@ -5,7 +5,6 @@ import Landing from 'Pages/Landing';
 import Login from 'Pages/Login';
 import Feed from 'Pages/Feed';
 import PostNew from 'Pages/PostNew';
-import 'antd/dist/antd.css'
 
 const App = () => {
     return (
