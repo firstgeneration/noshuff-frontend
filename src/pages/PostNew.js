@@ -5,11 +5,14 @@ import PostEditForm from 'Components/PostEditForm';
 
 const PostNew = () => {
     const [step, setStep] = useState(1);
-    const [playlists, setPlaylists] = useState([]);
-    const [selectedPlaylistId, setSelectedPlaylistId] = useState('');
+    const [playlists, setPlaylists] = useState(new Map());
+    const [selectedPlaylistId, setSelectedPlaylistId] = useState();
     const [selectedPlaylistTracks, setSelectedPlaylistTracks] = useState([]);
     const [comment, setComment] = useState('');
     const [hashtags, setHashtags] = useState([]);
+
+    useEffect(() => get_user_spotify_playlists(), []);
+    useEffect(() => selectedPlaylistId && get_selected_playlist_tracks(selectedPlaylistId), [selectedPlaylistId]);
 
     let spotify = new SpotifyWebApi();
     spotify.setAccessToken(localStorage.getItem('spotifyToken'));
@@ -28,14 +31,12 @@ const PostNew = () => {
                     });
                 }, new Map());
                 setPlaylists(playlists);
-                console.log(playlists);
             },
             (err) => {
                 console.error(err);
             }
         );
     };
-    useEffect(() => get_user_spotify_playlists(), []);
 
     const get_selected_playlist_tracks = (playlistId) => {
         spotify.getPlaylistTracks(playlistId)
@@ -54,7 +55,6 @@ const PostNew = () => {
             }
         );
     };
-    useEffect(() => get_selected_playlist_tracks(selectedPlaylistId), [selectedPlaylistId]);
 
     return (
         <div>
@@ -63,7 +63,7 @@ const PostNew = () => {
                 <PlaylistSelectForm
                     goNextStep={() => setStep(step + 1)}
                     playlists={playlists}
-                    selectPlaylist={setSelectedPlaylistId}
+                    onSelectPlaylist={setSelectedPlaylistId}
                 />
             }
             {step == 2 &&

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import TrackList from 'Components/TrackList';
+import PropTypes from 'prop-types';
 
-const PostEditForm = (props) => {
+const PostEditForm = ({playlist, tracks, goPrevStep}) => {
     const [showTracks, setShowTracks] = useState(false);
 
     const get_best_image_url = (imageUrls) => {
@@ -16,19 +17,25 @@ const PostEditForm = (props) => {
             <h2>Post Edit form is here</h2>
             <div onClick={toggleTrackList}>
                 {showTracks
-                    ? <TrackList tracks={props.tracks} />
-                    : <img width="300px" src={get_best_image_url(props.playlist.coverImageUrls)}/>
+                    ? <TrackList tracks={tracks} />
+                    : <img width="300px" src={get_best_image_url(playlist.coverImageUrls)}/>
                 }
             </div>
             <ul>
-                <li>Name: {props.playlist.name}</li>
-                <li>Description: {props.playlist.description || "*Add a description in spotify*"}</li>
-                <li>TrackCount: {props.playlist.trackCount}</li>
+                <li>Name: {playlist.name}</li>
+                <li>Description: {playlist.description || "*Add a description in spotify*"}</li>
+                <li>TrackCount: {playlist.trackCount}</li>
             </ul>
 
-            <button onClick={() => props.goPrevStep()}>Cancel</button>
+            <button onClick={() => goPrevStep()}>Cancel</button>
         </div>
     );
 };
+
+PostEditForm.propTypes = {
+    playlist: PropTypes.object.isRequired,
+    tracks: PropTypes.array.isRequired,
+    goPrevStep: PropTypes.func.isRequired,
+}
 
 export default PostEditForm;
