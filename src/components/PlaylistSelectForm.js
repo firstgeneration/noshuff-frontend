@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Typography } from 'antd';
 
 const PlaylistSelectForm = ({ playlists, onSelectPlaylist, goNextStep }) => {
     const handleSelectPlaylist = (id) => {
@@ -14,13 +15,13 @@ const PlaylistSelectForm = ({ playlists, onSelectPlaylist, goNextStep }) => {
 
     return (
         <div>
-            <h2>Select your playlist</h2>
+            <Typography.Title level={2}>Select playlist</Typography.Title>
             <ul>
                 {[...playlists.keys()].map((id) =>
                     <li onClick={() => handleSelectPlaylist(id)} key={id}>
-                        <span>{playlists.get(id).name}</span>
                         <img width="60px" src={get_best_image_url(playlists.get(id).coverImageUrls)}/>
-                        <span>Trackcount: {playlists.get(id).trackCount}</span>
+                        <span>{playlists.get(id).name} / </span>
+                        <span>{playlists.get(id).trackCount} Tracks</span>
                     </li>
                 )}
             </ul>

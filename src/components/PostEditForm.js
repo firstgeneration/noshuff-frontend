@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import TrackList from 'Components/TrackList';
 import { Form, Mentions, Button } from 'antd';
+import { Typography } from 'antd';
 
 const PostEditForm = ({playlist, tracks, goPrevStep}) => {
     const [form] = Form.useForm();
@@ -20,7 +21,7 @@ const PostEditForm = ({playlist, tracks, goPrevStep}) => {
 
     return (
         <Form form={form} name="control-hooks" onFinish={onSubmit}>
-            <h2>Post Edit form is here</h2>
+            <Typography.Title level={2}>Post Edit form is here</Typography.Title>
             <div onClick={toggleTrackList}>
                 {showTracks
                     ? <TrackList tracks={tracks} />

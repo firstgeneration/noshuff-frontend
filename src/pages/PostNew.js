@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
 import PlaylistSelectForm from 'Components/PlaylistSelectForm';
 import PostEditForm from 'Components/PostEditForm';
+import { Typography } from 'antd';
 
 const PostNew = () => {
     const [step, setStep] = useState(1);
@@ -58,7 +59,7 @@ const PostNew = () => {
 
     return (
         <div>
-            <h1>Here is the new post page</h1>
+            <Typography.Title level={1}>Here is the new post page</Typography.Title>
             {step == 1 &&
                 <PlaylistSelectForm
                     goNextStep={() => setStep(step + 1)}
