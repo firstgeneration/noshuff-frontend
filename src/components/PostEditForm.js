@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import TrackList from 'Components/TrackList';
 import PropTypes from 'prop-types';
+import TrackList from 'Components/TrackList';
+import { Form, Mentions, Button } from 'antd';
 
 const PostEditForm = ({playlist, tracks, goPrevStep}) => {
+    const [form] = Form.useForm();
     const [showTracks, setShowTracks] = useState(false);
 
     const get_best_image_url = (imageUrls) => {
@@ -12,8 +14,12 @@ const PostEditForm = ({playlist, tracks, goPrevStep}) => {
 
     const toggleTrackList = () => setShowTracks(!showTracks);
 
+    const onSubmit = (values) => {
+        console.log(values);
+    };
+
     return (
-        <div>
+        <Form form={form} name="control-hooks" onFinish={onSubmit}>
             <h2>Post Edit form is here</h2>
             <div onClick={toggleTrackList}>
                 {showTracks
@@ -26,9 +32,16 @@ const PostEditForm = ({playlist, tracks, goPrevStep}) => {
                 <li>Description: {playlist.description || "*Add a description in spotify*"}</li>
                 <li>TrackCount: {playlist.trackCount}</li>
             </ul>
-
-            <button onClick={() => goPrevStep()}>Cancel</button>
-        </div>
+            <Form.Item name="caption">
+                <Mentions placeholder="Write a caption..."/>
+            </Form.Item>
+            <Button type="primary" htmlType="submit">
+                Save
+            </Button>
+            <Button htmlType="button" onClick={() => goPrevStep()}>
+                Cancel
+            </Button>
+        </Form>
     );
 };
 

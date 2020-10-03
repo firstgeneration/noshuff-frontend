@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 const TrackList = ({ tracks }) => {
     return (
         <ul>
-            {tracks.map((track, idx) => 
-                <li key={idx}>{track.name}</li>
-            )}
+            {tracks.map((track, idx) => <li key={idx}>{track.name}</li>)}
         </ul>
     );
 };
