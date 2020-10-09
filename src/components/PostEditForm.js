@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import TrackList from 'Components/TrackList';
-import { Form, Mentions, Button } from 'antd';
-import { Typography } from 'antd';
+import { Form, Mentions, Button, Typography } from 'antd';
 
-const PostEditForm = ({playlist, tracks, goPrevStep, onSubmit}) => {
+const PostEditForm = ({ goPrevStep, playlist, tracks, caption, setCaption, onSubmit }) => {
     const [form] = Form.useForm();
     const [showTracks, setShowTracks] = useState(false);
 
@@ -12,7 +11,6 @@ const PostEditForm = ({playlist, tracks, goPrevStep, onSubmit}) => {
         const image = imageUrls.find(img => img.width == '300');
         return image ? image.url : imageUrls[0].url
     }
-
     const toggleTrackList = () => setShowTracks(!showTracks);
 
     return (
@@ -30,7 +28,11 @@ const PostEditForm = ({playlist, tracks, goPrevStep, onSubmit}) => {
                 <li>TrackCount: {playlist.trackCount}</li>
             </ul>
             <Form.Item name="caption">
-                <Mentions placeholder="Write a caption..."/>
+                <Mentions
+                    placeholder="Write a caption..."
+                    value={caption}
+                    onChange={(val)=> setCaption(val)}
+                />
             </Form.Item>
             <Button type="primary" htmlType="submit">
                 Save

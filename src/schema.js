@@ -3,7 +3,8 @@
     posts: {
         type: 'posts',
         fields: {
-            spotify_playlist_id: 'string'
+            spotify_playlist_id: 'string',
+            caption: 'string'
           },
         relationships: {
             user: {
