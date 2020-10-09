@@ -3,6 +3,7 @@ import SpotifyWebApi from 'spotify-web-api-js';
 import PlaylistSelectForm from 'Components/PlaylistSelectForm';
 import PostEditForm from 'Components/PostEditForm';
 import { Typography } from 'antd';
+import { useMutation } from 'jsonapi-react'
 
 const PostNew = () => {
     const [step, setStep] = useState(1);
@@ -14,6 +15,8 @@ const PostNew = () => {
 
     useEffect(() => get_user_spotify_playlists(), []);
     useEffect(() => selectedPlaylistId && get_selected_playlist_tracks(selectedPlaylistId), [selectedPlaylistId]);
+
+    const [addPost, { isLoading, data, error, errors }] = useMutation('posts')
 
     let spotify = new SpotifyWebApi();
     spotify.setAccessToken(localStorage.getItem('spotifyToken'));
@@ -57,6 +60,11 @@ const PostNew = () => {
         );
     };
 
+    const onSubmit = async e => {
+        const result = await addPost( {spotify_playlist_id: selectedPlaylistId });
+        console.log(result);
+    };
+
     return (
         <div>
             <Typography.Title level={1}>Here is the new post page</Typography.Title>
@@ -72,6 +80,7 @@ const PostNew = () => {
                     goPrevStep={() => setStep(step - 1)}
                     playlist={playlists.get(selectedPlaylistId)}
                     tracks={selectedPlaylistTracks}
+                    onSubmit={onSubmit}
                 />
             }
         </div>

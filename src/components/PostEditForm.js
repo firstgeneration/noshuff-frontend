@@ -4,7 +4,7 @@ import TrackList from 'Components/TrackList';
 import { Form, Mentions, Button } from 'antd';
 import { Typography } from 'antd';
 
-const PostEditForm = ({playlist, tracks, goPrevStep}) => {
+const PostEditForm = ({playlist, tracks, goPrevStep, onSubmit}) => {
     const [form] = Form.useForm();
     const [showTracks, setShowTracks] = useState(false);
 
@@ -14,10 +14,6 @@ const PostEditForm = ({playlist, tracks, goPrevStep}) => {
     }
 
     const toggleTrackList = () => setShowTracks(!showTracks);
-
-    const onSubmit = (values) => {
-        console.log(values);
-    };
 
     return (
         <Form form={form} name="control-hooks" onFinish={onSubmit}>

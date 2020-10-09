@@ -1,20 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router, Link } from "@reach/router";
-import Landing from 'Pages/Landing';
-import Login from 'Pages/Login';
-import Feed from 'Pages/Feed';
-import PostNew from 'Pages/PostNew';
+import { ApiClient, ApiProvider } from "jsonapi-react";
+import schema from "./schema";
+import App from "./App";
 
-const App = () => {
+const client = new ApiClient({
+    url: 'http://localhost:5000/api/v1',
+    schema,
+    headers: {
+        'Authorization': `Bearer ${localStorage.getItem('noshuffToken')}`
+    }
+});
+
+const Root = () => {
     return (
-        <Router>
-            <Landing path="/" />
-            <Login path="/login" />
-            <Feed path="/feed" />
-            <PostNew path="/new-post" />
-        </Router>
+        <ApiProvider client={client}>
+            <App />
+        </ApiProvider>
     );
 };
 
-ReactDOM.render(<App />, document.querySelector("#root"));
+ReactDOM.render(<Root />, document.querySelector("#root"));
