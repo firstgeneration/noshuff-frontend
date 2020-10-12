@@ -1,16 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography } from 'antd';
+import { getBestImageUrl } from 'Utils/spotifyUtils';
 
 const PlaylistSelectForm = ({ playlists, onSelectPlaylist, goNextStep }) => {
     const handleSelectPlaylist = (id) => {
         onSelectPlaylist(id);
         goNextStep();
-    };
-
-    const get_best_image_url = (imageUrls) => {
-        const image = imageUrls.find(img => img.width == '60');
-        return image ? image.url : imageUrls[0].url
     };
 
     return (
@@ -19,7 +15,7 @@ const PlaylistSelectForm = ({ playlists, onSelectPlaylist, goNextStep }) => {
             <ul>
                 {[...playlists.keys()].map((id) =>
                     <li onClick={() => handleSelectPlaylist(id)} key={id}>
-                        <img width="60px" src={get_best_image_url(playlists.get(id).coverImageUrls)}/>
+                        <img width="60px" src={getBestImageUrl('small', playlists.get(id).coverImageUrls)}/>
                         <span>{playlists.get(id).name} / </span>
                         <span>{playlists.get(id).trackCount} Tracks</span>
                     </li>

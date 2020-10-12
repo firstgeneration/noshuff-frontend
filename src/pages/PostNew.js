@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
-import { useMutation } from 'jsonapi-react'
-import { navigate } from "@reach/router"
+import { useMutation } from 'jsonapi-react';
+import { navigate } from "@reach/router";
 import PlaylistSelectForm from 'Components/PlaylistSelectForm';
 import PostEditForm from 'Components/PostEditForm';
 import { Typography } from 'antd';

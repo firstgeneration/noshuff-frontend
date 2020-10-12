@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { navigate } from "@reach/router"
 const queryString = require('query-string');
 

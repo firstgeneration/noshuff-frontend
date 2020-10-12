@@ -40,6 +40,7 @@ module.exports = {
         alias: {
             Pages: path.join(__dirname, '/src/pages'),
             Components: path.join(__dirname, '/src/components'),
+            Utils: path.join(__dirname, '/src/utils'),
         }
     },
     plugins: [
