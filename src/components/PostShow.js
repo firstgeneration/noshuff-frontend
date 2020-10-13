@@ -36,6 +36,7 @@ const PostShow = ({ post }) => {
 
     return (
         <div>
+            <p><strong>{post.user.spotify_id}</strong></p>
             <PlaylistCover
                 tracks={playlist.tracks}
                 imageUrl={playlist.imageUrl}
