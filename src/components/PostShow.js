@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import SpotifyWebApi from 'spotify-web-api-js';
 import PlaylistCover from 'Components/PlaylistCover';
 import { getBestImageUrl } from 'Utils/spotifyUtils';
+import { Link } from "@reach/router";
 
-const PostShow = ({ post }) => {
+const PostShow = ({ post, userId }) => {
     const [playlist, setPlaylist] = useState({});
 
     useEffect(() => get_spotify_playlist(post.spotify_playlist_id), []);
@@ -36,7 +37,7 @@ const PostShow = ({ post }) => {
 
     return (
         <div>
-            <p><strong>{post.user.spotify_id}</strong></p>
+            <strong><Link to={`/${userId || post.user.id}`}>{userId || post.user.id}</Link>{" "}</strong>
             <PlaylistCover
                 tracks={playlist.tracks}
                 imageUrl={playlist.imageUrl}
@@ -53,6 +54,7 @@ const PostShow = ({ post }) => {
 
 PostShow.propTypes = {
     post: PropTypes.object.isRequired,
+    userId: PropTypes.string,
 };
 
 export default PostShow;

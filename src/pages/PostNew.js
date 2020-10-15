@@ -61,7 +61,6 @@ const PostNew = () => {
 
     const onSubmit = async e => {
         const result = await addPost( {spotify_playlist_id: selectedPlaylistId, caption: caption });
-        console.log(result);
         navigate("/feed", { replace: true})
     };
 
