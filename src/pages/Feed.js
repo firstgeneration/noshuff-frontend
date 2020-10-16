@@ -6,6 +6,8 @@ import { useQuery } from 'jsonapi-react'
 const Feed = () => {
     const { data, meta, error, isLoading, isFetching } = useQuery(['posts', {include: ['user']}]);
 
+    console.log('feed_data', data);
+
     return (
         <div>
             <h1>Here is the feed</h1>

@@ -5,7 +5,7 @@ import PlaylistCover from 'Components/PlaylistCover';
 import { getBestImageUrl } from 'Utils/spotifyUtils';
 import { Link } from "@reach/router";
 
-const PostShow = ({ post, userId }) => {
+const PostShow = ({ post, user }) => {
     const [playlist, setPlaylist] = useState({});
 
     useEffect(() => get_spotify_playlist(post.spotify_playlist_id), []);
@@ -35,9 +35,12 @@ const PostShow = ({ post, userId }) => {
         );
     };
 
+    console.log('show post', post);
+    const userId = user ? user.id : post.user.id;
+    const userDisplayName = user ? user.display_name : post.user.display_name;
     return (
         <div>
-            <strong><Link to={`/${userId || post.user.id}`}>{userId || post.user.id}</Link>{" "}</strong>
+            <strong><Link to={`/${userId}`}>{userDisplayName}</Link></strong>
             <PlaylistCover
                 tracks={playlist.tracks}
                 imageUrl={playlist.imageUrl}
