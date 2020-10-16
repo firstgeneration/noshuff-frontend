@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from 'react';
 import ReactDOM from "react-dom";
 import { ApiClient, ApiProvider } from "jsonapi-react";
 import schema from "./schema";
 import App from "./App";
+import { CurrentUserContext } from "Contexts/CurrentUserContext";
 
 const client = new ApiClient({
     url: 'http://localhost:5000/api/v1',
@@ -13,9 +14,13 @@ const client = new ApiClient({
 });
 
 const Root = () => {
+    const [currentUser, setCurrentUser] = useState(localStorage.getItem('userId'));
+
     return (
         <ApiProvider client={client}>
-            <App />
+            <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
+                <App />
+            </CurrentUserContext.Provider>
         </ApiProvider>
     );
 };
