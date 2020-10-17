@@ -12,6 +12,19 @@
             }
         }
     },
+    users: {
+        type: 'users',
+        fields: {
+            id: 'string',
+            display_name: 'string',
+            is_following: 'boolean'
+        },
+        relationships: {
+            user: {
+                type: 'users',
+            }
+        }
+    },
 };
 
 export default schema;
