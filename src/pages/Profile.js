@@ -23,7 +23,7 @@ const Profile = (props) => {
             {isLoading 
                 ? <div>...loading</div>
                 : <div>
-                    {currentUser !== profileUserId &&
+                    {currentUser.id !== profileUserId &&
                         <FollowButton userId={profileUserId} isFollowing={data.is_following}/>
                     }
                     {data.posts.map((post, idx) => <PostShow key={idx} post={post} user={profileUser}/>)}

@@ -4,7 +4,7 @@ const queryString = require('query-string');
 import { CurrentUserContext } from "Contexts/CurrentUserContext";
 
 const Login = (props) => {
-    const { setCurrentUser, setToken } = useContext(CurrentUserContext);
+    const { setCurrentUser } = useContext(CurrentUserContext);
     // Add case where user rejects spotify access
     const parsed = queryString.parse(props.location.hash);
     localStorage.setItem('spotifyToken', parsed.access_token);
@@ -19,8 +19,7 @@ const Login = (props) => {
             (result) => {
                 localStorage.setItem('noshuffToken', result.noshuff_access_token)
                 localStorage.setItem('userId', result.user_id)
-                setToken(result.noshuff_access_token);
-                setCurrentUser(result.spotify_id);
+                setCurrentUser({ id: result.user_id, token: result.noshuff_access_token });
                 navigate("/feed", { replace: true})
             },
             (error) => {

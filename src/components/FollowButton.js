@@ -7,7 +7,7 @@ const FollowButton = ({ isFollowing, userId }) => {
     const [isUserFollowing, setIsUserFollowing] = useState(isFollowing);
 
     const toggleFollow = () => {
-        const url = `http://localhost:5000/api/v1/users/${currentUser}/relationships/follows`;
+        const url = `http://localhost:5000/api/v1/users/${currentUser.id}/relationships/follows`;
         const options = {
             method: isUserFollowing ? 'DELETE' : 'POST',
             headers: {

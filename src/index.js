@@ -1,9 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from "react-dom";
 import { ApiClient, ApiProvider } from "jsonapi-react";
 import schema from "./schema";
 import App from "./App";
 import { CurrentUserContext } from "Contexts/CurrentUserContext";
+import Nav from 'Components/Nav';
 
 const getClient = (token) => {
     return new ApiClient({
@@ -15,21 +16,24 @@ const getClient = (token) => {
     });
 };
 
-const Provider = () => {
-    const { token } = useContext(CurrentUserContext);
+const Provider = ({ currentUser }) => {
     return (
-        <ApiProvider client={getClient(token)}>
+        <ApiProvider client={getClient(currentUser.token)}>
+            {currentUser.id && 
+                <Nav currentUserId={currentUser.id}/>
+            }
             <App />
         </ApiProvider>
     );
 };
 
 const Root = () => {
-    const [currentUser, setCurrentUser] = useState(localStorage.getItem('userId'));
-    const [token, setToken] = useState(localStorage.getItem('noshuffToken'));
+    const userIdStorage = localStorage.getItem('userId');
+    const tokenStorage = localStorage.getItem('noshuffToken');
+    const [currentUser, setCurrentUser] = useState({id: userIdStorage, token: tokenStorage});
     return (
-        <CurrentUserContext.Provider value={{currentUser, setCurrentUser, token, setToken}}>
-            <Provider/>
+        <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
+            <Provider currentUser={currentUser}/>
         </CurrentUserContext.Provider>
     )
 };
