@@ -4,7 +4,7 @@ import PostShow from 'Components/PostShow'
 import { useQuery } from 'jsonapi-react'
 
 const Feed = () => {
-    const { data, meta, error, isLoading, isFetching } = useQuery(['posts', {include: ['user']}]);
+    const { data, meta, error, isLoading, isFetching } = useQuery(['feed', {include: ['user']}]);
 
     console.log('feed_data', data);
 

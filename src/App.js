@@ -5,6 +5,7 @@ import Login from 'Pages/Login';
 import Feed from 'Pages/Feed';
 import PostNew from 'Pages/PostNew';
 import Profile from 'Pages/Profile'
+import Explore from 'Pages/Explore'
 
 const App = () => {
     return (
@@ -14,6 +15,7 @@ const App = () => {
             <Feed path="feed" />
             <PostNew path="new-post" />
             <Profile path=":userId" />
+            <Explore path="explore" />
         </Router>
     );
 };
