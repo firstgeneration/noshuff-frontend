@@ -8,7 +8,7 @@ const { Option } = Mentions;
 
 const PostEditForm = ({ goPrevStep, playlist, tracks, onSubmit }) => {
     const [form] = Form.useForm();
-    const [users, setUsers] = useState([]);
+    const [results, setResults] = useState([]);
 
     const onSearch = (text, prefix) => {
         if (prefix == '@') {
@@ -28,13 +28,40 @@ const PostEditForm = ({ goPrevStep, playlist, tracks, onSubmit }) => {
                     const userList = result.data.map((user) => {
                         return `${user.attributes.display_name.replace(/ /g, '')}(${user.id})`
                     });
-                    setUsers(userList);
+                    setResults(userList);
                 },
                 (error) => {
                     console.log('help', error);
                 }
             )
-        };
+        } else if (prefix == '#') {
+            const url = `http://localhost:5000/api/v1/hashtags`;
+            const options = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/vnd.api+json',
+                    'Accept': 'application/vnd.api+json',
+                    'Authorization': `Bearer ${localStorage.getItem('noshuffToken')}`
+                },
+            };
+            fetch(url, options)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    const hashtagList = result.data.map((hashtag) => {
+                        return hashtag.attributes.tag;
+                    });
+                    setResults(hashtagList);
+                },
+                (error) => {
+                    console.log('help', error);
+                }
+            )
+        }
+    };
+
+    const onSelect = (option) => {
+        setResults([]);
     };
 
     return (
@@ -55,8 +82,9 @@ const PostEditForm = ({ goPrevStep, playlist, tracks, onSubmit }) => {
                     placeholder="Write a caption..."
                     prefix={['@', '#']}
                     onSearch={onSearch}
+                    onSelect={onSelect}
                 >
-                    {users.map((user, idx) => <Option value={user} key={idx}>{user}</Option>)}
+                    {results.map((value, idx) => <Option value={value} key={idx}>{value}</Option>)}
                 </Mentions>
             </Form.Item>
             <Button type="primary" htmlType="submit">
