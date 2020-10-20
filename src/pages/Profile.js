@@ -3,6 +3,7 @@ import PostShow from 'Components/PostShow'
 import { useQuery } from 'jsonapi-react'
 import { CurrentUserContext } from "Contexts/CurrentUserContext";
 import FollowButton from 'Components/FollowButton';
+import { Typography } from 'antd';
 
 const Profile = (props) => {
     const { currentUser } = useContext(CurrentUserContext);
@@ -19,7 +20,7 @@ const Profile = (props) => {
 
     return (
         <div>
-            <h1>Here is the user profile</h1>
+            <Typography.Title level={1}>Profile</Typography.Title>
             {isLoading 
                 ? <div>...loading</div>
                 : <div>

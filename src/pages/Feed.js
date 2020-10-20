@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from '@reach/router'
 import PostShow from 'Components/PostShow'
 import { useQuery } from 'jsonapi-react'
+import { Typography } from 'antd';
 
 const Feed = () => {
     const { data, meta, error, isLoading, isFetching } = useQuery(['feed', {include: ['user']}]);
@@ -10,8 +10,7 @@ const Feed = () => {
 
     return (
         <div>
-            <h1>Here is the feed</h1>
-            <Link to="/new-post">Post a playlist</Link>
+            <Typography.Title level={1}>Following Feed</Typography.Title>
             {isLoading 
                 ? <div>...loading</div>
                 : data.map((post, idx) => <PostShow key={idx} post={post} />)
