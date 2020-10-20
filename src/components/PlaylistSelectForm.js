@@ -11,7 +11,7 @@ const PlaylistSelectForm = ({ playlists, onSelectPlaylist, goNextStep }) => {
 
     return (
         <div>
-            <Typography.Title level={2}>Select playlist</Typography.Title>
+            <Typography.Title level={2}>Choose a playlist</Typography.Title>
             <ul>
                 {[...playlists.keys()].map((id) =>
                     <li onClick={() => handleSelectPlaylist(id)} key={id}>

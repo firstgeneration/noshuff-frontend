@@ -11,7 +11,6 @@ const PostNew = () => {
     const [playlists, setPlaylists] = useState(new Map());
     const [selectedPlaylistId, setSelectedPlaylistId] = useState();
     const [selectedPlaylistTracks, setSelectedPlaylistTracks] = useState([]);
-    const [caption, setCaption] = useState('here');
     const [addPost, { isLoading, data, error, errors }] = useMutation('posts')
 
     useEffect(() => get_user_spotify_playlists(), []);
@@ -59,14 +58,14 @@ const PostNew = () => {
         );
     };
 
-    const onSubmit = async e => {
-        const result = await addPost( {spotify_playlist_id: selectedPlaylistId, caption: caption });
+    const onSubmit = async (data) => {
+        const result = await addPost( {spotify_playlist_id: selectedPlaylistId, caption: data.caption });
         navigate("/feed", { replace: true})
     };
 
     return (
         <div>
-            <Typography.Title level={1}>Here is the new post page</Typography.Title>
+            <Typography.Title level={1}>New Post</Typography.Title>
             {step == 1 &&
                 <PlaylistSelectForm
                     goNextStep={() => setStep(step + 1)}
@@ -79,8 +78,6 @@ const PostNew = () => {
                     goPrevStep={() => setStep(step - 1)}
                     playlist={playlists.get(selectedPlaylistId)}
                     tracks={selectedPlaylistTracks}
-                    caption={caption}
-                    setCaption={setCaption}
                     onSubmit={onSubmit}
                 />
             }
