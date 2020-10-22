@@ -4,9 +4,11 @@ import SpotifyWebApi from 'spotify-web-api-js';
 import PlaylistCover from 'Components/PlaylistCover';
 import { getBestImageUrl } from 'Utils/spotifyUtils';
 import { Link } from "@reach/router";
+import LikeButton from 'Components/LikeButton';
 
 const PostShow = ({ post, user }) => {
     const [playlist, setPlaylist] = useState({});
+    const [likesCount, setlikesCount] = useState(post.likes_count);
 
     useEffect(() => get_spotify_playlist(post.spotify_playlist_id), []);
 
@@ -35,6 +37,14 @@ const PostShow = ({ post, user }) => {
         );
     };
 
+    const onLike = () => {
+        setlikesCount(likesCount + 1)
+    };
+
+    const onUnlike = () => {
+        setlikesCount(likesCount - 1)
+    };
+
     console.log('show post', post);
     const userId = user ? user.id : post.user.id;
     const userDisplayName = user ? user.display_name : post.user.display_name;
@@ -45,6 +55,13 @@ const PostShow = ({ post, user }) => {
                 tracks={playlist.tracks}
                 imageUrl={playlist.imageUrl}
             />
+            <LikeButton
+                postId={post.id}
+                isLiked={post.is_liked}
+                onLike = {onLike}
+                onUnlike = {onUnlike}
+            />
+            <div>{likesCount} Like{likesCount == 1 ? '': 's'}</div>
             <ul>
                 <li>Name: {playlist.name}</li>
                 <li>Description: {playlist.description || "*Add a description in spotify*"}</li>
