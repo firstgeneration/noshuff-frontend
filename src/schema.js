@@ -16,6 +16,7 @@
         type: 'users',
         fields: {
             id: 'string',
+            avatar_url: 'string',
             display_name: 'string',
             is_following: 'boolean'
         },

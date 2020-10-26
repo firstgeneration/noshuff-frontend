@@ -10,12 +10,6 @@ const Profile = (props) => {
     const profileUserId = props.location.pathname.replaceAll('/', '');
     const { data, meta, error, isLoading, isFetching } = useQuery([['users', profileUserId], {include: ['posts']}]);
 
-    let profileUser = {};
-    if (!isLoading) {
-        console.log('profile data', data);
-        profileUser = {id: data.id, display_name: data.display_name};
-    }
-
     console.log('profile data', data);
 
     return (
@@ -27,7 +21,7 @@ const Profile = (props) => {
                     {currentUser.id !== profileUserId &&
                         <FollowButton userId={profileUserId} isFollowing={data.is_following}/>
                     }
-                    {data.posts.map((post, idx) => <PostShow key={idx} post={post} user={profileUser}/>)}
+                    {data.posts.map((post, idx) => <PostShow key={idx} post={post} user={data}/>)}
                   </div>
             }
         </div>

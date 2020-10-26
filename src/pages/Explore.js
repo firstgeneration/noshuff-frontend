@@ -14,7 +14,7 @@ const Explore = () => {
             <h1>Here is the Explore page</h1>
             {isLoading 
                 ? <div>...loading</div>
-                : data.map((post, idx) => <PostShow key={idx} post={post} />)
+                : data.map((post, idx) => <PostShow key={idx} post={post} user={post.user}/>)
             }
         </div>
     );

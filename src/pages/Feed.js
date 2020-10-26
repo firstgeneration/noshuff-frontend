@@ -13,7 +13,7 @@ const Feed = () => {
             <Typography.Title level={1}>Following Feed</Typography.Title>
             {isLoading 
                 ? <div>...loading</div>
-                : data.map((post, idx) => <PostShow key={idx} post={post} />)
+                : data.map((post, idx) => <PostShow key={idx} post={post} user={post.user}/>)
             }
         </div>
     );

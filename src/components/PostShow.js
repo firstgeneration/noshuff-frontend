@@ -46,11 +46,9 @@ const PostShow = ({ post, user }) => {
     };
 
     console.log('show post', post);
-    const userId = user ? user.id : post.user.id;
-    const userDisplayName = user ? user.display_name : post.user.display_name;
     return (
         <div>
-            <strong><Link to={`/${userId}`}>{userDisplayName}</Link></strong>
+            <strong><Link to={`/${user.id}`}><img width='25px' src={user.avatar_url}/>{user.display_name}</Link></strong>
             <PlaylistCover
                 tracks={playlist.tracks}
                 imageUrl={playlist.imageUrl}
@@ -74,7 +72,7 @@ const PostShow = ({ post, user }) => {
 
 PostShow.propTypes = {
     post: PropTypes.object.isRequired,
-    userId: PropTypes.string,
+    user: PropTypes.object.isRequired,
 };
 
 export default PostShow;
