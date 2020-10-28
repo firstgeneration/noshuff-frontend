@@ -5,7 +5,7 @@ import { CurrentUserContext } from "Contexts/CurrentUserContext";
 
 const Explore = () => {
     const { currentUser } = useContext(CurrentUserContext);
-    const { data, meta, error, isLoading, isFetching } = useQuery(['explore', {include: ['user']}]);
+    const { data, meta, error, isLoading, isFetching } = useQuery(['explore', {include: ['user', 'comments.author']}]);
 
     console.log('explore_data', data);
 

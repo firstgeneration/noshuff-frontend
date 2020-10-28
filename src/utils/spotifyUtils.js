@@ -1,5 +1,9 @@
 
 const getBestImageUrl = (size='medium', imageUrls) => {
+    if (imageUrls.length == 0) {
+        return '';
+    }
+
     let width;
     switch (size) {
         case 'small':

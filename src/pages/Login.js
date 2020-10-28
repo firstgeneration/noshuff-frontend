@@ -17,9 +17,17 @@ const Login = (props) => {
         .then(res => res.json())
         .then(
             (result) => {
-                localStorage.setItem('noshuffToken', result.noshuff_access_token)
-                localStorage.setItem('userId', result.user_id)
-                setCurrentUser({ id: result.user_id, token: result.noshuff_access_token });
+                const currentUser = {
+                    token: result.noshuff_access_token,
+                    id: result.user_id,
+                    displayName: result.display_name,
+                    avatarUrl: result.avatar_url,
+                };
+                localStorage.setItem('noshuffToken', currentUser.token);
+                localStorage.setItem('userId', currentUser.id);
+                localStorage.setItem('displayName', currentUser.displayName);
+                localStorage.setItem('avatarUrl', currentUser.avatarUrl);
+                setCurrentUser(currentUser);
                 navigate("/feed", { replace: true})
             },
             (error) => {

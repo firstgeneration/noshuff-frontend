@@ -65,7 +65,7 @@ const PostEditForm = ({ goPrevStep, playlist, tracks, onSubmit }) => {
     };
 
     return (
-        <Form form={form} name="control-hooks" onFinish={onSubmit}>
+        <Form form={form} onFinish={onSubmit}>
             <Typography.Title level={2}>Add details</Typography.Title>
             <PlaylistCover
                 tracks={tracks}

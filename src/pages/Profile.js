@@ -8,9 +8,7 @@ import { Typography } from 'antd';
 const Profile = (props) => {
     const { currentUser } = useContext(CurrentUserContext);
     const profileUserId = props.location.pathname.replaceAll('/', '');
-    const { data, meta, error, isLoading, isFetching } = useQuery([['users', profileUserId], {include: ['posts']}]);
-
-    console.log('profile data', data);
+    const { data, meta, error, isLoading, isFetching } = useQuery([['users', profileUserId], {include: ['posts.comments.author']}]);
 
     return (
         <div>
