@@ -28,9 +28,13 @@ const Provider = ({ currentUser }) => {
 };
 
 const Root = () => {
-    const userIdStorage = localStorage.getItem('userId');
-    const tokenStorage = localStorage.getItem('noshuffToken');
-    const [currentUser, setCurrentUser] = useState({id: userIdStorage, token: tokenStorage});
+    const currentUserStorage = {
+        token: localStorage.getItem('noshuffToken'),
+        id: localStorage.getItem('userId'),
+        dislpayName: localStorage.getItem('displayName'),
+        avatarUrl: localStorage.getItem('avatarUrl')
+    };
+    const [currentUser, setCurrentUser] = useState(currentUserStorage);
     return (
         <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
             <Provider currentUser={currentUser}/>

@@ -14,7 +14,7 @@ const LikeButton = ({ postId, isLiked, onLike, onUnlike }) => {
             headers: {
                 'Content-Type': 'application/vnd.api+json',
                 'Accept': 'application/vnd.api+json',
-                'Authorization': `Bearer ${localStorage.getItem('noshuffToken')}`
+                'Authorization': `Bearer ${currentUser.token}`
             },
             body: JSON.stringify({
                 "data": [
